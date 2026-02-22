@@ -468,7 +468,7 @@
 +bootfile_bl2=openwrt-mediatek-filogic-bananapi_bpi-r4-pro-8x-emmc-preloader.bin
 +bootfile_fip=openwrt-mediatek-filogic-bananapi_bpi-r4-pro-8x-emmc-bl31-uboot.fip
 +bootfile_upg=openwrt-mediatek-filogic-bananapi_bpi-r4-pro-8x-squashfs-sysupgrade.itb
-+bootled_pwr=green:status
++bootled_pwr=red:status
 +bootled_rec=blue:status
 +bootmenu_confirm_return=askenv - Press ENTER to return to menu ; bootmenu 60
 +bootmenu_default=0
@@ -526,7 +526,7 @@
 +bootdelay=0
 +bootfile=openwrt-mediatek-filogic-bananapi_bpi-r4-pro-8x-initramfs-recovery.itb
 +bootfile_upg=openwrt-mediatek-filogic-bananapi_bpi-r4-pro-8x-squashfs-sysupgrade.itb
-+bootled_pwr=green:status
++bootled_pwr=red:status
 +bootled_rec=blue:status
 +bootmenu_confirm_return=askenv - Press ENTER to return to menu ; bootmenu 60
 +bootmenu_default=0
@@ -595,7 +595,7 @@
 +bootfile_bl2=openwrt-mediatek-filogic-bananapi_bpi-r4-pro-8x-snand-preloader.bin
 +bootfile_fip=openwrt-mediatek-filogic-bananapi_bpi-r4-pro-8x-snand-bl31-uboot.fip
 +bootfile_upg=openwrt-mediatek-filogic-bananapi_bpi-r4-pro-8x-squashfs-sysupgrade.itb
-+bootled_pwr=green:status
++bootled_pwr=red:status
 +bootled_rec=blue:status
 +bootmenu_confirm_return=askenv - Press ENTER to return to menu ; bootmenu 60
 +bootmenu_default=0
@@ -768,7 +768,7 @@
 +		};
 +
 +		led_blue: sys-led-blue {
-+			label = "blue:satus";
++			label = "blue:status";
 +			gpios = <&pca9555 14 GPIO_ACTIVE_HIGH>;
 +		};
 +	};
