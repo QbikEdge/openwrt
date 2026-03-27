@@ -1,0 +1,11 @@
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -5,7 +5,7 @@
+ ADD_DEFINITIONS(-Os -Wall -Werror --std=gnu99 -g3)
+ IF(CMAKE_C_COMPILER_VERSION VERSION_GREATER 6)
+         ADD_DEFINITIONS(-Wextra -Werror=implicit-function-declaration)
+-        ADD_DEFINITIONS(-Wformat -Werror=format-security -Werror=format-nonliteral)
++        ADD_DEFINITIONS(-Wformat -Werror=format-security)
+ ENDIF()
+ ADD_DEFINITIONS(-Wno-unused-parameter -Wmissing-declarations)
+ 
