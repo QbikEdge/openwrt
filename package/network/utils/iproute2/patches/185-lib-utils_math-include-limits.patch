@@ -1,0 +1,20 @@
+--- a/lib/utils_math.c
++++ b/lib/utils_math.c
+@@ -4,6 +4,7 @@
+ #include <stdlib.h>
+ #include <string.h>
+ #include <math.h>
++#include <limits.h>
+ #include <asm/types.h>
+ 
+ #include "utils.h"
+--- a/tc/tc_core.c
++++ b/tc/tc_core.c
+@@ -8,6 +8,7 @@
+ #include <stdio.h>
+ #include <stdlib.h>
+ #include <stdint.h>
++#include <limits.h>
+ #include <unistd.h>
+ #include <fcntl.h>
+ #include <math.h>
