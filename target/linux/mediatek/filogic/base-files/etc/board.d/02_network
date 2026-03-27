@@ -101,8 +101,7 @@ mediatek_setup_interfaces()
 		ucidef_set_interfaces_lan_wan "lan1 lan2 lan3 lan4" "wan sfp-wan"
 		;;
 	bananapi,bpi-r4-pro-8x)
-		ucidef_set_interfaces_lan_wan "lan1 lan2 lan3 lan4" "mgmt"
-		#ucidef_set_interfaces_lan_wan "lan1 lan2 lan3 lan4 lan5 mgmt sfp-lan" "wan sfp-wan"
+		ucidef_set_interfaces_lan_wan "lan1 lan2 lan3 lan4 lan6 mgmt" "sfp-wan"
 		;;
 	comfast,cf-e393ax)
 		ucidef_set_interfaces_lan_wan "lan1" eth1
@@ -244,7 +243,8 @@ mediatek_setup_macs()
 	bananapi,bpi-r3|\
 	bananapi,bpi-r3-mini|\
 	bananapi,bpi-r4|\
-	bananapi,bpi-r4-lite)
+	bananapi,bpi-r4-lite|\
+	bananapi,bpi-r4-pro-8x)
 		wan_mac=$(macaddr_add $(cat /sys/class/net/eth0/address) 1)
 		;;
 	h3c,magic-nx30-pro)

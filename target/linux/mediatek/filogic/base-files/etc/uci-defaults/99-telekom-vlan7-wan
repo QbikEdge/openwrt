@@ -1,0 +1,23 @@
+#!/bin/sh
+# Telekom (and similar) fiber: tagged VLAN 7 on SFP WAN (DHCP).
+# Change proto to pppoe and add username/password if your line uses PPPoE.
+
+. /lib/functions.sh
+
+[ "$(board_name)" = "bananapi,bpi-r4-pro-8x" ] || exit 0
+
+[ "$(uci -q get network.wan.device)" = "wan.7" ] && exit 0
+
+uci -q batch <<EOF
+set network.telekom_wan7=device
+set network.telekom_wan7.name='wan.7'
+set network.telekom_wan7.type='8021q'
+set network.telekom_wan7.ifname='sfp-wan'
+set network.telekom_wan7.vid='7'
+set network.wan.device='wan.7'
+set network.wan.proto='dhcp'
+EOF
+
+uci commit network
+
+exit 0
