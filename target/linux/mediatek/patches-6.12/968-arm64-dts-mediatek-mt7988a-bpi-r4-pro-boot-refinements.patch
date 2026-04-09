@@ -1,0 +1,99 @@
+From: OpenWrt <openwrt@openwrt.org>
+Subject: arm64: dts: mediatek: bpi-r4-pro: boot refinements
+
+Disable the rear USB host (ssusb0) that
+fails clock setup on this board; front USB (ssusb1) remains enabled.
+
+Bind Ethernet MAC addresses from the AT24C02 EEPROM via mac-base nvmem.
+
+Use default-state "keep" on PCA9555-backed LEDs and add vcc-supply for
+cleaner GPIO expander / gpio-leds probe ordering.
+
+SPI NAND is not disabled here: U-Boot SNAND production boot applies the FIT
+overlay named "emmc" to the DTB, so disabling SPI in that overlay would
+break NAND-root boots. eMMC-only users may still see UBI errors on mtd1
+until NAND is erased or re-flashed.
+
+Signed-off-by: OpenWrt <openwrt@openwrt.org>
+---
+ .../mediatek/mt7988a-bananapi-bpi-r4-pro.dtsi      | 28 ++++++++++++++++++++--
+ 1 file changed, 26 insertions(+), 2 deletions(-)
+
+--- a/arch/arm64/boot/dts/mediatek/mt7988a-bananapi-bpi-r4-pro.dtsi
++++ b/arch/arm64/boot/dts/mediatek/mt7988a-bananapi-bpi-r4-pro.dtsi
+@@ -64,13 +64,13 @@
+ 		led_red: sys-led-red {
+ 			color = <LED_COLOR_ID_RED>;
+ 			gpios = <&pca9555 15 GPIO_ACTIVE_HIGH>;
+-			default-state = "on";
++			default-state = "keep";
+ 		};
+ 
+ 		led_blue: sys-led-blue {
+ 			color = <LED_COLOR_ID_BLUE>;
+ 			gpios = <&pca9555 14 GPIO_ACTIVE_HIGH>;
+-			default-state = "on";
++			default-state = "keep";
+ 		};
+ 	};
+ 
+@@ -195,10 +195,14 @@
+ };
+ 
+ &gmac0 {
++	nvmem-cells = <&factory_eeprom_mac 0>;
++	nvmem-cell-names = "mac-address";
+ 	status = "okay";
+ };
+ 
+ &gmac1 {
++	nvmem-cells = <&factory_eeprom_mac 1>;
++	nvmem-cell-names = "mac-address";
+ 	managed = "in-band-status";
+ 	phy-mode = "usxgmii";
+ 	openwrt,netdev-name = "sfp-wan";
+@@ -207,6 +211,8 @@
+ };
+ 
+ &gmac2 {
++	nvmem-cells = <&factory_eeprom_mac 2>;
++	nvmem-cell-names = "mac-address";
+ 	phy-mode = "10gbase-r";
+ 	phy-connection-type = "10gbase-r";
+ 	status = "okay";
+@@ -455,6 +461,7 @@
+ 				reg = <0x20>;
+ 				gpio-controller;
+ 				#gpio-cells = <2>;
++				vcc-supply = <&reg_3p3v>;
+ 			};
+ 
+ 			rtc@51 {
+@@ -465,6 +472,18 @@
+ 			eeprom@57 {
+ 				compatible = "atmel,24c02";
+ 				reg = <0x57>;
++				nvmem-layout {
++					compatible = "fixed-layout";
++					#address-cells = <1>;
++					#size-cells = <1>;
++
++					factory_eeprom_mac: macaddr@0 {
++						compatible = "mac-base";
++						reg = <0x0 0x6>;
++						#nvmem-cell-cells = <1>;
++					};
++				};
++
+ 				address-width = <8>;
+ 				pagesize = <8>;
+ 				size = <256>;
+@@ -661,7 +680,7 @@
+ 	/* Use U2P only instead of both U3P/U2P due to U3P serdes shared with pcie2 */
+ 	phys = <&xphyu2port0 PHY_TYPE_USB2>;
+ 	mediatek,u3p-dis-msk = <1>;
+-	status = "okay";
++	status = "disabled";
+ };
+ 
+ /* front USB */

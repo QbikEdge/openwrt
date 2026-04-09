@@ -499,11 +499,11 @@
 +bootmenu_10=Reset all settings to factory defaults.=run reset_factory ; reset
 +boot_first=if button reset ; then led $bootled_rec on ; run boot_tftp_recovery ; setenv flag_recover 1 ; run boot_default ; fi ; bootmenu
 +boot_default=if env exists flag_recover ; then else run bootcmd ; fi ; run boot_recovery ; setenv replacevol 1 ; run boot_tftp_forever
-+boot_production=led $bootled_pwr on ; run emmc_read_production && bootm $loadaddr#$bootconf#$bootconf_emmc#$bootconf_extra ; led $bootled_pwr off
-+boot_recovery=led $bootled_rec on ; run emmc_read_recovery && bootm $loadaddr#$bootconf#$bootconf_emmc#$bootconf_extra ; led $bootled_rec off
++boot_production=led $bootled_pwr on ; run emmc_read_production && bootm $loadaddr#$bootconf#$bootconf_emmc ; led $bootled_pwr off
++boot_recovery=led $bootled_rec on ; run emmc_read_recovery && bootm $loadaddr#$bootconf#$bootconf_emmc ; led $bootled_rec off
 +boot_emmc=run boot_production ; run boot_recovery
 +boot_tftp_forever=led $bootled_rec on ; while true ; do run boot_tftp_recovery ; sleep 1 ; done
-+boot_tftp_production=tftpboot $loadaddr $bootfile_upg && env exists replacevol && imszb $loadaddr image_size_tmp && run emmc_write_production ; if env exists noboot ; then else bootm $loadaddr#$bootconf#$bootconf_emmc#$bootconf_extra ; fi
++boot_tftp_production=tftpboot $loadaddr $bootfile_upg && env exists replacevol && imszb $loadaddr image_size_tmp && run emmc_write_production ; if env exists noboot ; then else bootm $loadaddr#$bootconf#$bootconf_emmc ; fi
 +boot_tftp_recovery=tftpboot $loadaddr $bootfile && env exists replacevol && imszb $loadaddr image_size_tmp && run emmc_write_recovery ; if env exists noboot ; then else bootm $loadaddr#$bootconf#$bootconf_emmc ; fi
 +boot_tftp_write_fip=tftpboot $loadaddr $bootfile_fip && run emmc_write_fip
 +boot_tftp_write_bl2=tftpboot $loadaddr $bootfile_bl2 && run emmc_write_bl2
@@ -558,11 +558,11 @@
 +bootmenu_8=Reset all settings to factory defaults.=run reset_factory ; reset
 +boot_first=if button reset ; then led $bootled_rec on ; run boot_tftp_recovery ; setenv flag_recover 1 ; run boot_default ; fi ; bootmenu
 +boot_default=if env exists flag_recover ; then else run bootcmd ; fi ; run boot_recovery ; setenv replacevol 1 ; run boot_tftp_forever
-+boot_production=led $bootled_pwr on ; run sdmmc_read_production && bootm $loadaddr#$bootconf#$bootconf_sd#$bootconf_extra ; led $bootled_pwr off
++boot_production=led $bootled_pwr on ; run sdmmc_read_production && bootm $loadaddr#$bootconf#$bootconf_sd ; led $bootled_pwr off
 +boot_recovery=led $bootled_rec on ; run sdmmc_read_recovery && bootm $loadaddr#$bootconf#$bootconf_emmc ; led $bootled_rec off
 +boot_sdmmc=run boot_production ; run boot_recovery
 +boot_tftp_forever=led $bootled_rec on ; while true ; do run boot_tftp_recovery ; sleep 1 ; done
-+boot_tftp_production=tftpboot $loadaddr $bootfile_upg && env exists replacevol && imszb $loadaddr image_size_tmp && run sdmmc_write_production ; if env exists noboot ; then else bootm $loadaddr#$bootconf#$bootconf_sd#$bootconf_extra ; fi
++boot_tftp_production=tftpboot $loadaddr $bootfile_upg && env exists replacevol && imszb $loadaddr image_size_tmp && run sdmmc_write_production ; if env exists noboot ; then else bootm $loadaddr#$bootconf#$bootconf_sd ; fi
 +boot_tftp_recovery=tftpboot $loadaddr $bootfile && env exists replacevol && imszb $loadaddr image_size_tmp && run sdmmc_write_recovery ; if env exists noboot ; then else bootm $loadaddr#$bootconf#$bootconf_sd ; fi
 +boot_tftp=tftpboot $loadaddr $bootfile && bootm $loadaddr#$bootconf#$bootconf_sd
 +mmc_write_vol=imszb $loadaddr image_size && test 0x$image_size -le 0x$part_size && mmc erase 0x$part_addr 0x$image_size && mmc write $loadaddr 0x$part_addr 0x$image_size
