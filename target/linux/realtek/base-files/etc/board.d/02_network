@@ -52,7 +52,11 @@ realtek_setup_macs()
 	local label_mac=""
 
 	case $board in
+	datto,l8|\
 	edgecore,ecs4100-12ph|\
+	linksys,lgs310c|\
+	linksys,lgs328c|\
+	linksys,lgs352c|\
 	netgear,gs108t-v3|\
 	netgear,gs110tpp-v1|\
 	netgear,gs110tup-v1|\
@@ -65,11 +69,13 @@ realtek_setup_macs()
 	xikestor,sks8300-8t|\
 	xikestor,sks8300-12e2t2x|\
 	xikestor,sks8300-12x-v1|\
+	xikestor,sks8310-8x|\
 	zyxel,xgs1210-12-a1|\
 	zyxel,xgs1210-12-b1)
 		lan_mac=$(get_mac_label)
 		lan_mac_start=$lan_mac
 		;;
+	d-link,dgs-1250-28x|\
 	hasivo,s1100wp-8gt-se|\
 	hpe,1920-8g|\
 	hpe,1920-8g-poe-65w|\
@@ -100,12 +106,6 @@ realtek_setup_macs()
 		lan_mac_start=$lan_mac
 		eth0_mac=$lan_mac
 		;;
-	xikestor,sks8310-8x)
-		lan_mac=$(mtd_get_mac_binary factory 0x80)
-		label_mac="$lan_mac"
-		lan_mac_start=$lan_mac
-		eth0_mac=$lan_mac
-		;;
 	allnet,all-sg8208m|\
 	apresia,aplgs120gtss|\
 	d-link,dgs-1210-10mp-f|\
@@ -122,9 +122,6 @@ realtek_setup_macs()
 	hasivo,s1100w-8xgt-se|\
 	inaba,aml2-17gp|\
 	iodata,bsh-g24mb|\
-	linksys,lgs310c|\
-	linksys,lgs328c|\
-	linksys,lgs352c|\
 	netgear,gs750e|\
 	panasonic,m16eg-pn28160k|\
 	panasonic,m24eg-pn28240k|\
@@ -189,6 +186,9 @@ realtek_setup_poe()
 	edgecore,ecs4100-12ph|\
 	netgear,gs110tpp-v1)
 		ucidef_set_poe 130 "$(filter_port_list "$lan_list" "lan9 lan10")"
+		;;
+	datto,l8)
+		ucidef_set_poe 55 "lan5 lan6 lan7 lan8 lan4 lan3 lan2 lan1"
 		;;
 	engenius,ews2910p-v1|\
 	engenius,ews2910p-v3)

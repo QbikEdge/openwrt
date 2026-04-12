@@ -134,54 +134,18 @@
 };
 
 &mdio_bus0 {
-	/* External RTL8224 PHY */
-	phy0: ethernet-phy@0 {
-		reg = <0>;
-		compatible = "ethernet-phy-ieee802.3-c45";
-	};
-
-	phy1: ethernet-phy@1 {
-		reg = <1>;
-		compatible = "ethernet-phy-ieee802.3-c45";
-	};
-
-	phy2: ethernet-phy@2 {
-		reg = <2>;
-		compatible = "ethernet-phy-ieee802.3-c45";
-	};
-
-	phy3: ethernet-phy@3 {
-		reg = <3>;
-		compatible = "ethernet-phy-ieee802.3-c45";
-	};
-
-	phy8: ethernet-phy@8 {
-		reg = <8>;
-		compatible = "ethernet-phy-ieee802.3-c45";
-		realtek,smi-address = <4>;
-	};
-
-	phy9: ethernet-phy@9 {
-		reg = <9>;
-		compatible = "ethernet-phy-ieee802.3-c45";
-		realtek,smi-address = <5>;
-	};
-
-	phy10: ethernet-phy@10 {
-		reg = <10>;
-		compatible = "ethernet-phy-ieee802.3-c45";
-		realtek,smi-address = <6>;
-	};
-
-	phy11: ethernet-phy@11 {
-		reg = <11>;
-		compatible = "ethernet-phy-ieee802.3-c45";
-		realtek,smi-address = <7>;
-	};
+	PHY_C45(0, 0)
+	PHY_C45(1, 1)
+	PHY_C45(2, 2)
+	PHY_C45(3, 3)
+	PHY_C45(8, 4)
+	PHY_C45(9, 5)
+	PHY_C45(10, 6)
+	PHY_C45(11, 7)
 };
 
 &switch0 {
-	ports {
+	ethernet-ports {
 		#address-cells = <1>;
 		#size-cells = <0>;
 
