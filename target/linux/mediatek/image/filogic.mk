@@ -1666,7 +1666,7 @@ TARGET_DEVICES += huasifei_wh3000
 define Device/huasifei_wh3000-pro
   DEVICE_VENDOR := Huasifei
   DEVICE_MODEL := WH3000 Pro
-  DEVICE_DTS := mt7981b-huasifei-wh3000-pro
+  DEVICE_DTS := mt7981b-huasifei-wh3000-pro-emmc
   DEVICE_DTS_DIR := ../dts
   DEVICE_PACKAGES := kmod-mt7915e kmod-mt7981-firmware mt7981-wo-firmware kmod-hwmon-pwmfan kmod-usb3 f2fsck mkf2fs
   KERNEL := kernel-bin | lzma | fit lzma $$(KDIR)/image-$$(firstword $$(DEVICE_DTS)).dtb

@@ -17,22 +17,22 @@ until NAND is erased or re-flashed.
 Signed-off-by: OpenWrt <openwrt@openwrt.org>
 ---
  .../mediatek/mt7988a-bananapi-bpi-r4-pro.dtsi      | 28 ++++++++++++++++++++--
- 1 file changed, 26 insertions(+), 2 deletions(-)
+ 1 file changed, 28 insertions(+), 2 deletions(-)
 
 --- a/arch/arm64/boot/dts/mediatek/mt7988a-bananapi-bpi-r4-pro.dtsi
 +++ b/arch/arm64/boot/dts/mediatek/mt7988a-bananapi-bpi-r4-pro.dtsi
-@@ -64,13 +64,13 @@
+@@ -61,12 +61,14 @@
  		led_red: sys-led-red {
  			color = <LED_COLOR_ID_RED>;
+ 			function = LED_FUNCTION_FAULT;
  			gpios = <&pca9555 15 GPIO_ACTIVE_HIGH>;
--			default-state = "on";
 +			default-state = "keep";
  		};
  
  		led_blue: sys-led-blue {
  			color = <LED_COLOR_ID_BLUE>;
+ 			function = LED_FUNCTION_ACTIVITY;
  			gpios = <&pca9555 14 GPIO_ACTIVE_HIGH>;
--			default-state = "on";
 +			default-state = "keep";
  		};
  	};
